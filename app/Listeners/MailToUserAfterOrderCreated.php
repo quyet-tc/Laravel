@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\OrderCreate;
+use App\Events\OrderCreated;
 use App\Mail\MailToUserAfterOrderCreate;
 use App\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,17 +24,16 @@ class MailToUserAfterOrderCreated
     /**
      * Handle the event.
      *
-     * @param  OrderCreate  $event
+     * @param  OrderCreated  $event
      * @return void
      */
-    public function handle(OrderCreate $event)
+    public function handle(OrderCreated $event)
     {
         $order = $event->order;
-        $user = User::find($order->_get("user_id"));
+        $user = User::find($order->__get("user_id"));
         try {
-            Mail::to($user->_get("email"))
+            Mail::to($user->__get("email"))
                 ->send(new MailToUserAfterOrderCreate($user));
         }catch (\Exception $exception){}
-
     }
 }

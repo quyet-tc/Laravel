@@ -7,6 +7,7 @@ use App\Category;
 use App\Events\OrderCreated;
 use App\Order;
 use App\Product;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,8 @@ use Psy\Util\Str;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return mixed
+     * @throws \Throwable
      */
     public function index()
     {
