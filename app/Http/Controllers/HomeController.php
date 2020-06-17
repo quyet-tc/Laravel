@@ -23,21 +23,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(!Cache::has("home_page")){
-            $most_views = Product::orderBy("view_count","DESC")->limit(8)->get();
-            $featureds = Product::orderBy("updated_at","DESC")->limit(8)->get();
-            $latest_1 = Product::orderBy("created_at","DESC")->limit(3)->get();
-            $latest_2 = Product::orderBy("created_at","DESC")->offset(3)->limit(3)->get();
+        //if(!Cache::has("home_page")){
+        $most_views = Product::orderBy("view_count","DESC")->limit(8)->get();
+        $featureds = Product::orderBy("updated_at","DESC")->limit(8)->get();
+        $latest_1 = Product::orderBy("created_at","DESC")->limit(3)->get();
+        $latest_2 = Product::orderBy("created_at","DESC")->offset(3)->limit(3)->get();
 
-            $view =  view("frontend.home",[
-                "most_views"=>$most_views,
-                "featureds" =>$featureds,
-                "latest_1" => $latest_1,
-                "latest_2" => $latest_2,
-            ])->render();
-            $now = Carbon::now();
-            Cache::put("home_page",$view,$now->addMinutes(20));
-        }
+        $view =  view("frontend.home",[
+            "most_views"=>$most_views,
+            "featureds" =>$featureds,
+            "latest_1" => $latest_1,
+            "latest_2" => $latest_2,
+        ])->render();
+        $now = Carbon::now();
+        Cache::put("home_page",$view,$now->addMinutes(20));
+        //}
         return Cache::get("home_page");
     }
 

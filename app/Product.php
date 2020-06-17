@@ -20,7 +20,7 @@ class Product extends Model
 
     public function getImage(){
         if(is_null($this->__get("product_image"))){
-            return asset("media/bieutuong.jpg");
+            return asset("media/product.jpeg");
         }
         return asset($this->__get("product_image"));
     }
@@ -39,5 +39,14 @@ class Product extends Model
 
     public function Brand(){
         return $this->belongsTo("\App\Brand");
+    }
+
+    public function toArray()
+    {
+        return  [
+            "id"=>$this->__get("id"),
+            "name"=>$this->__get("product_name"),
+            "image"=> $this->getImage()
+        ];
     }
 }
